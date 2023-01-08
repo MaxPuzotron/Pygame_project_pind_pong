@@ -1,11 +1,19 @@
+# Импорт библиотек
 import sys
+import PyQt5
 
+# Импорт функций библиотек
 from PyQt5 import uic
+from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
+
+# Импорт файлов
 from in_game_windowlvl2 import Game_window_lvl2
-from in_game_window_lvl1 import Game_window
+from in_game_window_lvl1 import Game_window_lvl1
 
 
+# Класс отвечающий за открытие главного окна
 class Main_Window(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -13,14 +21,17 @@ class Main_Window(QMainWindow):
         self.new_game_button.clicked.connect(self.open_new_game)
         self.close_button.clicked.connect(self.close)
 
+    # Функция закрытия главного окна
     def close(self):
         QMainWindow.close(self)
 
+    # Функция открытия класса To_lvl
     def open_new_game(self):
         shahid.show()
         QMainWindow.close(self)
 
 
+# Класс отвечающий за открытие окна меню уровней
 class To_lvl(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -28,10 +39,12 @@ class To_lvl(QMainWindow):
         self.to_lvl1_button.clicked.connect(self.to_lvl1)
         self.to_lvl2_button.clicked.connect(self.to_lvl2)
 
+    # Функция открывающая окно 1 уровня
     def to_lvl1(self):
         alah.show()
         QMainWindow.close(self)
 
+    # Функция открывающая окно 2 уровня
     def to_lvl2(self):
         kashmir.show()
         QMainWindow.close(self)
@@ -43,5 +56,5 @@ if __name__ == '__main__':
     ex.show()
     shahid = To_lvl()
     kashmir = Game_window_lvl2()
-    alah = Game_window()
+    alah = Game_window_lvl1()
     sys.exit(app.exec_())

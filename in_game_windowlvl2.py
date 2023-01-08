@@ -1,11 +1,16 @@
+# Импорт библиотек
 import sqlite3
+import PyQt5
 import sys
 import pygame
 import random
-from pygame.locals import *
 
+# Импорт функций библиотек
+from pygame.locals import *
 from PyQt5 import uic
+from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
 
 
 class Game_window_lvl2(QMainWindow):
@@ -29,9 +34,44 @@ class Game_window_lvl2(QMainWindow):
         self.right_wins.setText(str(self.result2[0][0]))
         self.right_loses.setText(str(self.result2[0][1]))
 
+    # Функция открывающая игру на pygame
     def game(self):
-        self.function1()
+        QMainWindow.close(self)
+        self.game_lvl2()
 
+    # Функция обнуляющая значение в базе данных и полях вывода
+    def clear(self):
+        cur = self.con.cursor()
+        self.result1 = cur.execute("SELECT * FROM left_player").fetchall()
+        self.result2 = cur.execute("SELECT * FROM right_player").fetchall()
+
+        lw = int(self.result1[0][0])
+        ll = int(self.result1[0][1])
+
+        rw = int(self.result2[0][0])
+        rl = int(self.result2[0][1])
+
+        self.con.execute(
+            "UPDATE left_player \n SET count_lose = 0 \n WHERE count_win =" + str(lw))
+        self.con.execute(
+            "UPDATE left_player \n SET count_win = 0 \n WHERE count_lose = 0")
+
+        self.con.commit()
+
+        self.con.execute(
+            "UPDATE right_player \n SET count_win = 0 \n WHERE count_lose = " + str(rl))
+        self.con.execute(
+            "UPDATE right_player \n SET count_lose = 0 \n WHERE count_win = 0")
+
+        self.con.commit()
+
+        self.left_wins.setText(str(self.result1[0][0]))
+        self.left_loses.setText(str(self.result1[0][1]))
+
+        self.right_wins.setText(str(self.result2[0][0]))
+        self.right_loses.setText(str(self.result2[0][1]))
+
+    # Функция обновляющая счет
     def update_score(self, left_win):
         cur = self.con.cursor()
         self.result1 = cur.execute("SELECT * FROM left_player").fetchall()
@@ -67,38 +107,8 @@ class Game_window_lvl2(QMainWindow):
         self.right_wins.setText(str(self.result2[0][0]))
         self.right_loses.setText(str(self.result2[0][1]))
 
-    def clear(self):
-        cur = self.con.cursor()
-        self.result1 = cur.execute("SELECT * FROM left_player").fetchall()
-        self.result2 = cur.execute("SELECT * FROM right_player").fetchall()
-
-        lw = int(self.result1[0][0])
-        ll = int(self.result1[0][1])
-
-        rw = int(self.result2[0][0])
-        rl = int(self.result2[0][1])
-
-        self.con.execute(
-            "UPDATE left_player \n SET count_lose = 0 \n WHERE count_win =" + str(lw))
-        self.con.execute(
-            "UPDATE left_player \n SET count_win = 0 \n WHERE count_lose = 0")
-
-        self.con.commit()
-
-        self.con.execute(
-            "UPDATE right_player \n SET count_win = 0 \n WHERE count_lose = " + str(rl))
-        self.con.execute(
-            "UPDATE right_player \n SET count_lose = 0 \n WHERE count_win = 0")
-
-        self.con.commit()
-
-        self.left_wins.setText(str(self.result1[0][0]))
-        self.left_loses.setText(str(self.result1[0][1]))
-
-        self.right_wins.setText(str(self.result2[0][0]))
-        self.right_loses.setText(str(self.result2[0][1]))
-
-    def function1(self):
+    # Функция в которой находится игра на pygame
+    def game_lvl2(self):
         run = 1
         while run == 1:
             winsize = [800, 600]
@@ -133,10 +143,10 @@ class Game_window_lvl2(QMainWindow):
             screen = pygame.display.set_mode(winsize)
             pygame.display.set_caption('Ping Pong')
             screen.fill(black)
-            paddle = pygame.image.load('123/paddle.bmp').convert()
-            paddleerase = pygame.image.load('123/erase.bmp').convert()
-            ball = pygame.image.load('123/1.png').convert()
-            ballerase = pygame.image.load('123/fireeraser.png').convert()
+            paddle = pygame.image.load('sprites/paddle.bmp').convert()
+            paddleerase = pygame.image.load('sprites/erase.bmp').convert()
+            ball = pygame.image.load('sprites/1.png').convert()
+            ballerase = pygame.image.load('sprites/fireeraser.png').convert()
 
             while gameover == true:
 
