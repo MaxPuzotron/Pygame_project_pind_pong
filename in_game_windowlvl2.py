@@ -160,9 +160,12 @@ class Game_window_lvl2(QMainWindow):
                     "Для игры должна стоять английская раскладка(для игроков на Macos).", true,
                     blue)
                 screen.blit(text_surface, (80, 280))
-                text_surface = font.render("Вы готовы играть в пинг понг.", true,
+                text_surface = font.render("Игра идёт до 6 очков", true,
                                            blue)
                 screen.blit(text_surface, (80, 320))
+                text_surface = font.render("Вы готовы играть в пинг понг.", true,
+                                           blue)
+                screen.blit(text_surface, (80, 360))
                 pygame.display.update()
                 anim = [pygame.image.load('images/1.png'), pygame.image.load('images/2.png'),
                         pygame.image.load('images/3.png'), pygame.image.load('images/4.png'),
@@ -195,7 +198,7 @@ class Game_window_lvl2(QMainWindow):
                 screen.blit(paddleerase, paddleleftxy)
                 screen.blit(paddleerase, paddlerightxy)
                 screen.blit(ballerase, ballxy)
-                font = pygame.font.SysFont("Tahoma", 45)
+                font = pygame.font.SysFont("Arial", 45)
                 if scoreleft > 5:
                     gameover = True
                     left_win = 1
@@ -239,7 +242,7 @@ class Game_window_lvl2(QMainWindow):
                     exit()
                 if pressed_keys[K_p]:
                     gamepaused = true
-                    font = pygame.font.SysFont("Tahoma", 64)
+                    font = pygame.font.SysFont("Arial", 64)
                     paused_surface = font.render("Paused", true, blue)
                     paused_rect = screen.blit(paused_surface, (300, 250))
                     pygame.display.update()
@@ -304,22 +307,26 @@ class Game_window_lvl2(QMainWindow):
                 clock.tick(100)
             while True:
                 screen.fill([0, 0, 0])
-                font = pygame.font.SysFont("Arial", 20)
-                text_surface = font.render("Python Ping Pong", true, blue)
-                screen.blit(text_surface, (80, 40))
-                text_surface = font.render("For left paddle player please press A and Z to move.", true,
+                font = pygame.font.SysFont("Times new roman", 20)
+                text_surface = font.render("Раунд окончен!", true, blue)
+                screen.blit(text_surface, (80, 60))
+                text_surface = font.render("Поздравляем победителя.", true,
                                            blue)
+                screen.blit(text_surface, (80, 90))
+                text_surface = font.render(
+                    "А проигравшему не отчаиваться, возможно в следующий раз победишь ты.", true,
+                    blue)
                 screen.blit(text_surface, (80, 120))
-                text_surface = font.render("For right paddle player please press Up and Down to move.",
-                                           true, blue)
-                screen.blit(text_surface, (80, 160))
-                text_surface = font.render("Press S to serve the ball", true, blue)
+                text_surface = font.render("После этого раунда, вы можете сыграть следующий.", true,
+                                           blue)
                 screen.blit(text_surface, (80, 200))
                 text_surface = font.render(
-                    "P to Pause, R to Resume, Press N to start a new game, and Q to Quit.", true, blue)
+                    "Результат этой игры сохранится и вы сможете его увидеть.", true, blue)
                 screen.blit(text_surface, (80, 240))
-                text_surface = font.render("You are now ready to play PyPong. Thank You! =)", true,
-                                           blue)
+                text_surface = font.render(
+                    "Если вы хотите его обнулить воспользуйтесь соответствующей кнопкой в меню.",
+                    true,
+                    blue)
                 screen.blit(text_surface, (80, 280))
                 pygame.display.update()
                 for event in pygame.event.get():

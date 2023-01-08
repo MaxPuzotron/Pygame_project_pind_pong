@@ -50,20 +50,26 @@ class Game_window_lvl1(QMainWindow):
         rw = int(self.result2[0][0])
         rl = int(self.result2[0][1])
         print(lw, ll, rw, rl)
-        print("UPDATE left_player \n SET count_win = " + str(lw + 1) + "\n WHERE count_lose = " + str(ll))
+        print(
+            "UPDATE left_player \n SET count_win = " + str(lw + 1) + "\n WHERE count_lose = " + str(
+                ll))
         if left_win == 1:
             self.con.execute(
-                "UPDATE left_player \n SET count_win = " + str(lw + 1) + "\n WHERE count_lose = " + str(ll))
+                "UPDATE left_player \n SET count_win = " + str(
+                    lw + 1) + "\n WHERE count_lose = " + str(ll))
             self.con.commit()
             self.con.execute(
-                "UPDATE right_player \n SET count_lose = " + str(rl + 1) + "\n WHERE count_win = " + str(rw))
+                "UPDATE right_player \n SET count_lose = " + str(
+                    rl + 1) + "\n WHERE count_win = " + str(rw))
             self.con.commit()
         else:
             self.con.execute(
-                "UPDATE left_player \n SET count_lose = " + str(ll + 1) + "\n WHERE count_win = " + str(lw))
+                "UPDATE left_player \n SET count_lose = " + str(
+                    ll + 1) + "\n WHERE count_win = " + str(lw))
             self.con.commit()
             self.con.execute(
-                "UPDATE right_player \n SET count_win = " + str(rw + 1) + "\n WHERE count_lose = " + str(rl))
+                "UPDATE right_player \n SET count_win = " + str(
+                    rw + 1) + "\n WHERE count_lose = " + str(rl))
             self.con.commit()
         self.left_wins.setText(str(self.result1[0][0]))
         self.left_loses.setText(str(self.result1[0][1]))
@@ -137,23 +143,30 @@ class Game_window_lvl1(QMainWindow):
                 font = pygame.font.SysFont("Arial", 20)
                 text_surface = font.render("Ping Pong", true, blue)
                 screen.blit(text_surface, (80, 40))
-                text_surface = font.render("Для управления левым игроком используйте клавиши 'A' и 'Z'.", true,
-                                           blue)
+                text_surface = font.render(
+                    "Для управления левым игроком используйте клавиши 'A' и 'Z'.", true,
+                    blue)
                 screen.blit(text_surface, (80, 120))
-                text_surface = font.render("Для управления правым игроком используйте клавиши вверх и вниз.",
-                                           true, blue)
+                text_surface = font.render(
+                    "Для управления правым игроком используйте клавиши вверх и вниз.",
+                    true, blue)
                 screen.blit(text_surface, (80, 160))
                 text_surface = font.render("Нажмите 'S', чтобы шар начал двигаться", true, blue)
                 screen.blit(text_surface, (80, 200))
                 text_surface = font.render(
-                    "'P' - пауза, 'R' - продолжить, 'N'- старт игры, 'Q' - выход из игры", true, blue)
+                    "'P' - пауза, 'R' - продолжить, 'N'- старт игры, 'Q' - выход из игры", true,
+                    blue)
                 screen.blit(text_surface, (80, 240))
-                text_surface = font.render("Для игры должна стоять английская раскладка(для игроков на Macos).", true,
-                                           blue)
+                text_surface = font.render(
+                    "Для игры должна стоять английская раскладка(для игроков на Macos).", true,
+                    blue)
                 screen.blit(text_surface, (80, 280))
-                text_surface = font.render("Вы готовы играть в пинг понг.", true,
+                text_surface = font.render("Игра идёт до 6 очков", true,
                                            blue)
                 screen.blit(text_surface, (80, 320))
+                text_surface = font.render("Вы готовы играть в пинг понг.", true,
+                                           blue)
+                screen.blit(text_surface, (80, 360))
                 pygame.display.update()
                 anim = [pygame.image.load('images/1.png'), pygame.image.load('images/2.png'),
                         pygame.image.load('images/3.png'), pygame.image.load('images/4.png'),
@@ -186,7 +199,7 @@ class Game_window_lvl1(QMainWindow):
                 screen.blit(paddleerase, paddleleftxy)
                 screen.blit(paddleerase, paddlerightxy)
                 screen.blit(ballerase, ballxy)
-                font = pygame.font.SysFont("Tahoma", 45)
+                font = pygame.font.SysFont("Arial", 45)
                 if scoreleft > 5:
                     gameover = True
                     left_win = 1
@@ -230,7 +243,7 @@ class Game_window_lvl1(QMainWindow):
                     exit()
                 if pressed_keys[K_p]:
                     gamepaused = true
-                    font = pygame.font.SysFont("Tahoma", 64)
+                    font = pygame.font.SysFont("Arial", 64)
                     paused_surface = font.render("Paused", true, blue)
                     paused_rect = screen.blit(paused_surface, (300, 250))
                     pygame.display.update()
@@ -251,7 +264,8 @@ class Game_window_lvl1(QMainWindow):
                             balldy = random.randrange(2, 4)
                         else:
                             balldy = random.randrange(0, 3)
-                    elif ballxy[0] > (paddlerightxy[0] - 20) and (paddlerightxy[1] - 18) < ballxy[1] <= (
+                    elif ballxy[0] > (paddlerightxy[0] - 20) and (paddlerightxy[1] - 18) < ballxy[
+                        1] <= (
                             paddlerightxy[1] + 98):
                         if ballcludge == 0:
                             balldx = -balldx
@@ -299,18 +313,22 @@ class Game_window_lvl1(QMainWindow):
                 screen.blit(text_surface, (80, 60))
                 text_surface = font.render("Поздравляем победителя.", true,
                                            blue)
-                screen.blit(text_surface, (80, 90))
-                text_surface = font.render("А проигравшему не отчаиваться, возможно в следующий раз победишь ты.", true,
-                                           blue)
-                screen.blit(text_surface, (80, 120))
-                text_surface = font.render("Нажмите 'S', чтобы шар начал двигаться", true, blue)
-                screen.blit(text_surface, (80, 200))
+                screen.blit(text_surface, (80, 100))
                 text_surface = font.render(
-                    "'P' - пауза, 'R' - продолжить, 'N'- старт игры, 'Q' - выход из игры", true, blue)
-                screen.blit(text_surface, (80, 240))
-                text_surface = font.render("Вы готовы играть в пинг понг. Спасибо! =)", true,
+                    "А проигравшему не отчаиваться, возможно в следующий раз победишь ты.", true,
+                    blue)
+                screen.blit(text_surface, (80, 140))
+                text_surface = font.render("После этого раунда, вы можете сыграть следующий.", true,
                                            blue)
-                screen.blit(text_surface, (80, 280))
+                screen.blit(text_surface, (80, 180))
+                text_surface = font.render(
+                    "Результат этой игры сохранится и вы сможете его увидеть.", true, blue)
+                screen.blit(text_surface, (80, 220))
+                text_surface = font.render(
+                    "Если вы хотите его обнулить воспользуйтесь соответствующей кнопкой в меню.",
+                    true,
+                    blue)
+                screen.blit(text_surface, (80, 260))
                 pygame.display.update()
                 for event in pygame.event.get():
                     if event.type == QUIT:
