@@ -27,8 +27,8 @@ class Main_Window(QMainWindow):
 
     # Функция открытия класса To_lvl
     def open_new_game(self):
-        shahid.show()
         QMainWindow.close(self)
+        shahid.show()
 
 
 # Класс отвечающий за открытие окна меню уровней
