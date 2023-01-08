@@ -39,38 +39,6 @@ class Game_window_lvl2(QMainWindow):
         QMainWindow.close(self)
         self.game_lvl2()
 
-    # Функция обнуляющая значение в базе данных и полях вывода
-    def clear(self):
-        cur = self.con.cursor()
-        self.result1 = cur.execute("SELECT * FROM left_player").fetchall()
-        self.result2 = cur.execute("SELECT * FROM right_player").fetchall()
-
-        lw = int(self.result1[0][0])
-        ll = int(self.result1[0][1])
-
-        rw = int(self.result2[0][0])
-        rl = int(self.result2[0][1])
-
-        self.con.execute(
-            "UPDATE left_player \n SET count_lose = 0 \n WHERE count_win =" + str(lw))
-        self.con.execute(
-            "UPDATE left_player \n SET count_win = 0 \n WHERE count_lose = 0")
-
-        self.con.commit()
-
-        self.con.execute(
-            "UPDATE right_player \n SET count_win = 0 \n WHERE count_lose = " + str(rl))
-        self.con.execute(
-            "UPDATE right_player \n SET count_lose = 0 \n WHERE count_win = 0")
-
-        self.con.commit()
-
-        self.left_wins.setText(str(self.result1[0][0]))
-        self.left_loses.setText(str(self.result1[0][1]))
-
-        self.right_wins.setText(str(self.result2[0][0]))
-        self.right_loses.setText(str(self.result2[0][1]))
-
     # Функция обновляющая счет
     def update_score(self, left_win):
         cur = self.con.cursor()
@@ -102,6 +70,30 @@ class Game_window_lvl2(QMainWindow):
                 "UPDATE right_player \n SET count_win = " + str(
                     rw + 1) + "\n WHERE count_lose = " + str(rl))
             self.con.commit()
+        self.left_wins.setText(str(self.result1[0][0]))
+        self.left_loses.setText(str(self.result1[0][1]))
+        self.right_wins.setText(str(self.result2[0][0]))
+        self.right_loses.setText(str(self.result2[0][1]))
+
+    # Функция обнуляющая значение в базе данных и полях вывода
+    def clear(self):
+        cur = self.con.cursor()
+        self.result1 = cur.execute("SELECT * FROM left_player").fetchall()
+        self.result2 = cur.execute("SELECT * FROM right_player").fetchall()
+        lw = int(self.result1[0][0])
+        ll = int(self.result1[0][1])
+        rw = int(self.result2[0][0])
+        rl = int(self.result2[0][1])
+        self.con.execute(
+            "UPDATE left_player \n SET count_lose = 0 \n WHERE count_win =" + str(lw))
+        self.con.execute(
+            "UPDATE left_player \n SET count_win = 0 \n WHERE count_lose = 0")
+        self.con.commit()
+        self.con.execute(
+            "UPDATE right_player \n SET count_win = 0 \n WHERE count_lose = " + str(rl))
+        self.con.execute(
+            "UPDATE right_player \n SET count_lose = 0 \n WHERE count_win = 0")
+        self.con.commit()
         self.left_wins.setText(str(self.result1[0][0]))
         self.left_loses.setText(str(self.result1[0][1]))
         self.right_wins.setText(str(self.result2[0][0]))
@@ -148,7 +140,7 @@ class Game_window_lvl2(QMainWindow):
             ballerase = pygame.image.load('sprites/fireeraser.png').convert()
             while gameover == true:
                 font = pygame.font.SysFont("Arial", 20)
-                text_surface = font.render("Python Ping Pong", true, blue)
+                text_surface = font.render("Ping Pong", true, blue)
                 screen.blit(text_surface, (80, 40))
                 text_surface = font.render(
                     "Для управления левым игроком используйте клавиши 'A' и 'Z'.", true,

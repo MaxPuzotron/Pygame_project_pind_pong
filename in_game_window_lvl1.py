@@ -75,30 +75,22 @@ class Game_window_lvl1(QMainWindow):
         cur = self.con.cursor()
         self.result1 = cur.execute("SELECT * FROM left_player").fetchall()
         self.result2 = cur.execute("SELECT * FROM right_player").fetchall()
-
         lw = int(self.result1[0][0])
         ll = int(self.result1[0][1])
-
         rw = int(self.result2[0][0])
         rl = int(self.result2[0][1])
-
         self.con.execute(
             "UPDATE left_player \n SET count_lose = 0 \n WHERE count_win =" + str(lw))
         self.con.execute(
             "UPDATE left_player \n SET count_win = 0 \n WHERE count_lose = 0")
-
         self.con.commit()
-
         self.con.execute(
             "UPDATE right_player \n SET count_win = 0 \n WHERE count_lose = " + str(rl))
         self.con.execute(
             "UPDATE right_player \n SET count_lose = 0 \n WHERE count_win = 0")
-
         self.con.commit()
-
         self.left_wins.setText(str(self.result1[0][0]))
         self.left_loses.setText(str(self.result1[0][1]))
-
         self.right_wins.setText(str(self.result2[0][0]))
         self.right_loses.setText(str(self.result2[0][1]))
 
@@ -143,7 +135,7 @@ class Game_window_lvl1(QMainWindow):
             ballerase = pygame.image.load('sprites/fireeraser.png').convert()
             while gameover == true:
                 font = pygame.font.SysFont("Arial", 20)
-                text_surface = font.render("Python Ping Pong", true, blue)
+                text_surface = font.render("Ping Pong", true, blue)
                 screen.blit(text_surface, (80, 40))
                 text_surface = font.render("Для управления левым игроком используйте клавиши 'A' и 'Z'.", true,
                                            blue)
@@ -302,18 +294,15 @@ class Game_window_lvl1(QMainWindow):
                 clock.tick(100)
             while True:
                 screen.fill([0, 0, 0])
-                font = pygame.font.SysFont("Tahoma", 20)
-                text_surface = font.render("Python Ping Pong", true, blue)
-                screen.blit(text_surface, (80, 20))
-                text_surface = font.render("Раунд окончен!", true,
+                font = pygame.font.SysFont("Times new roman", 20)
+                text_surface = font.render("Раунд окончен!", true, blue)
+                screen.blit(text_surface, (80, 60))
+                text_surface = font.render("Поздравляем победителя.", true,
                                            blue)
-                screen.blit(text_surface, (80, 40))
-                text_surface = font.render("Для управления левым игроком используйте клавиши 'A' и 'Z'.", true,
+                screen.blit(text_surface, (80, 90))
+                text_surface = font.render("А проигравшему не отчаиваться, возможно в следующий раз победишь ты.", true,
                                            blue)
                 screen.blit(text_surface, (80, 120))
-                text_surface = font.render("Для управления правым игроком используйте клавиши вверх и вниз.",
-                                           true, blue)
-                screen.blit(text_surface, (80, 160))
                 text_surface = font.render("Нажмите 'S', чтобы шар начал двигаться", true, blue)
                 screen.blit(text_surface, (80, 200))
                 text_surface = font.render(
