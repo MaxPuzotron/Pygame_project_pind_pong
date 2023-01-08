@@ -18,8 +18,8 @@ class Main_Window(QMainWindow):
     def __init__(self):
         super().__init__()
         uic.loadUi("ui files/main_menu_window.ui", self)
-        self.new_game_button.clicked.connect(self.open_new_game)
         self.close_button.clicked.connect(self.close)
+        self.new_game_button.clicked.connect(self.open_new_game)
 
     # Функция закрытия главного окна
     def close(self):
