@@ -41,13 +41,13 @@ class To_lvl(QMainWindow):
 
     # Функция открывающая окно 1 уровня
     def to_lvl1(self):
-        alah.show()
         QMainWindow.close(self)
+        alah.show()
 
     # Функция открывающая окно 2 уровня
     def to_lvl2(self):
-        kashmir.show()
         QMainWindow.close(self)
+        kashmir.show()
 
 
 if __name__ == '__main__':
