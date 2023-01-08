@@ -76,34 +76,34 @@ class Game_window_lvl2(QMainWindow):
         cur = self.con.cursor()
         self.result1 = cur.execute("SELECT * FROM left_player").fetchall()
         self.result2 = cur.execute("SELECT * FROM right_player").fetchall()
-
         lw = int(self.result1[0][0])
         ll = int(self.result1[0][1])
-
         rw = int(self.result2[0][0])
         rl = int(self.result2[0][1])
-
         print(lw, ll, rw, rl)
-        print("UPDATE left_player \n SET count_win = " + str(lw + 1) + "\n WHERE count_lose = " + str(ll))
-
+        print(
+            "UPDATE left_player \n SET count_win = " + str(lw + 1) + "\n WHERE count_lose = " + str(
+                ll))
         if left_win == 1:
             self.con.execute(
-                "UPDATE left_player \n SET count_win = " + str(lw + 1) + "\n WHERE count_lose = " + str(ll))
+                "UPDATE left_player \n SET count_win = " + str(
+                    lw + 1) + "\n WHERE count_lose = " + str(ll))
             self.con.commit()
             self.con.execute(
-                "UPDATE right_player \n SET count_lose = " + str(rl + 1) + "\n WHERE count_win = " + str(rw))
+                "UPDATE right_player \n SET count_lose = " + str(
+                    rl + 1) + "\n WHERE count_win = " + str(rw))
             self.con.commit()
         else:
             self.con.execute(
-                "UPDATE left_player \n SET count_lose = " + str(ll + 1) + "\n WHERE count_win = " + str(lw))
+                "UPDATE left_player \n SET count_lose = " + str(
+                    ll + 1) + "\n WHERE count_win = " + str(lw))
             self.con.commit()
             self.con.execute(
-                "UPDATE right_player \n SET count_win = " + str(rw + 1) + "\n WHERE count_lose = " + str(rl))
+                "UPDATE right_player \n SET count_win = " + str(
+                    rw + 1) + "\n WHERE count_lose = " + str(rl))
             self.con.commit()
-
         self.left_wins.setText(str(self.result1[0][0]))
         self.left_loses.setText(str(self.result1[0][1]))
-
         self.right_wins.setText(str(self.result2[0][0]))
         self.right_loses.setText(str(self.result2[0][1]))
 
@@ -137,7 +137,6 @@ class Game_window_lvl2(QMainWindow):
             ballcludge = 0
             left_win = 0
             right_win = 0
-
             pygame.init()
             clock = pygame.time.Clock()
             screen = pygame.display.set_mode(winsize)
@@ -147,54 +146,50 @@ class Game_window_lvl2(QMainWindow):
             paddleerase = pygame.image.load('sprites/erase.bmp').convert()
             ball = pygame.image.load('sprites/1.png').convert()
             ballerase = pygame.image.load('sprites/fireeraser.png').convert()
-
             while gameover == true:
-
-                font = pygame.font.SysFont("Tahoma", 20)
+                font = pygame.font.SysFont("Arial", 20)
                 text_surface = font.render("Python Ping Pong", true, blue)
                 screen.blit(text_surface, (80, 40))
-                text_surface = font.render("For left paddle player please press A and Z to move.", true,
-                                           blue)
+                text_surface = font.render(
+                    "Для управления левым игроком используйте клавиши 'A' и 'Z'.", true,
+                    blue)
                 screen.blit(text_surface, (80, 120))
-                text_surface = font.render("For right paddle player please press Up and Down to move.",
-                                           true, blue)
+                text_surface = font.render(
+                    "Для управления правым игроком используйте клавиши вверх и вниз.",
+                    true, blue)
                 screen.blit(text_surface, (80, 160))
-                text_surface = font.render("Press S to serve the ball", true, blue)
+                text_surface = font.render("Нажмите 'S', чтобы шар начал двигаться", true, blue)
                 screen.blit(text_surface, (80, 200))
                 text_surface = font.render(
-                    "P to Pause, R to Resume, Press N to start a new game, and Q to Quit.", true, blue)
+                    "'P' - пауза, 'R' - продолжить, 'N'- старт игры, 'Q' - выход из игры", true,
+                    blue)
                 screen.blit(text_surface, (80, 240))
-                text_surface = font.render("You are now ready to play PyPong. Thank You! =)", true,
-                                           blue)
+                text_surface = font.render(
+                    "Для игры должна стоять английская раскладка(для игроков на Macos).", true,
+                    blue)
                 screen.blit(text_surface, (80, 280))
+                text_surface = font.render("Вы готовы играть в пинг понг.", true,
+                                           blue)
+                screen.blit(text_surface, (80, 320))
                 pygame.display.update()
-
                 anim = [pygame.image.load('images/1.png'), pygame.image.load('images/2.png'),
                         pygame.image.load('images/3.png'), pygame.image.load('images/4.png'),
                         pygame.image.load('images/5.png'), pygame.image.load('images/6.png')]
-
                 anim_count = 0
-
                 for i in range(13):
                     screen.blit(anim[anim_count], (350, 400))
-
                     if anim_count == 5:
                         anim_count = 0
                     else:
                         anim_count += 1
-
                     pygame.display.update()
-
                     clock.tick(10)
-
                 while True:
                     for event in pygame.event.get():
                         if event.type == QUIT:
                             exit()
                             break
-
                     pressed_keys = pygame.key.get_pressed()
-
                     if pressed_keys[K_n]:
                         gameover = false
                         screen.fill(black)
@@ -203,17 +198,12 @@ class Game_window_lvl2(QMainWindow):
                         run = 0
                         break
                         exit()
-
                     clock.tick(20)
-
             while not gameover:
-
                 screen.blit(paddleerase, paddleleftxy)
                 screen.blit(paddleerase, paddlerightxy)
                 screen.blit(ballerase, ballxy)
-
                 font = pygame.font.SysFont("Tahoma", 45)
-
                 if scoreleft > 5:
                     gameover = True
                     left_win = 1
@@ -222,18 +212,14 @@ class Game_window_lvl2(QMainWindow):
                     gameover = True
                     left_win = 0
                     self.update_score(left_win)
-
                 text_surface1 = font.render(str(scoreleft), true, blue)
                 textleft = screen.blit(text_surface1, (40, 40))
                 text_surface1 = font.render(str(scoreright), true, blue)
                 textright = screen.blit(text_surface1, (700, 40))
-
                 for event in pygame.event.get():
                     if event.type == QUIT:
                         exit()
-
                 pressed_keys = pygame.key.get_pressed()
-
                 if pressed_keys[K_a]:
                     if paddleleftxy[1] > miny:
                         paddleleftxy[1] = paddleleftxy[1] - paddlestep
@@ -246,7 +232,6 @@ class Game_window_lvl2(QMainWindow):
                 elif pressed_keys[K_DOWN]:
                     if paddlerightxy[1] < maxy - 80:
                         paddlerightxy[1] = paddlerightxy[1] + paddlestep
-
                 if (pressed_keys[K_s] or pressed_keys[K_l]) and ballservice == true:
                     ballservice = false
                     if service == left:
@@ -257,18 +242,15 @@ class Game_window_lvl2(QMainWindow):
                         balldx = random.randrange(2, 3)
                         balldy = random.randrange(-3, 3)
                         service == left
-
                 if pressed_keys[K_q]:
                     run = 0
                     exit()
-
                 if pressed_keys[K_p]:
                     gamepaused = true
                     font = pygame.font.SysFont("Tahoma", 64)
                     paused_surface = font.render("Paused", true, blue)
                     paused_rect = screen.blit(paused_surface, (300, 250))
                     pygame.display.update()
-
                     while gamepaused == true:
                         for event in pygame.event.get():
                             if event.type == QUIT:
@@ -278,9 +260,7 @@ class Game_window_lvl2(QMainWindow):
                         if pressed_keys[K_r]:
                             gamepaused = false
                         clock.tick(20)
-
                     pygame.draw.rect(screen, black, paused_rect)
-
                 if ballservice is not true:
                     if ballxy[0] < (paddleleftxy[0] + 20) and (paddleleftxy[1] - 18) < ballxy[1] < (
                             paddleleftxy[1] + 98):
@@ -302,7 +282,6 @@ class Game_window_lvl2(QMainWindow):
                             ballcludge = ballcludge + 1
                             if ballcludge == 4:
                                 ballcludge = 0
-
                     elif ballxy[1] <= miny:
                         balldy = -balldy
                     elif ballxy[1] >= maxy:
@@ -326,18 +305,14 @@ class Game_window_lvl2(QMainWindow):
                     elif service == right:
                         ballxy[0] = paddlerightxy[0] - 25
                         ballxy[1] = paddlerightxy[1] + 40
-
                 screen.blit(paddle, paddleleftxy)
                 screen.blit(paddle, paddlerightxy)
                 screen.blit(ball, ballxy)
                 pygame.display.update()
-
                 clock.tick(100)
-
             while True:
                 screen.fill([0, 0, 0])
-
-                font = pygame.font.SysFont("Tahoma", 20)
+                font = pygame.font.SysFont("Arial", 20)
                 text_surface = font.render("Python Ping Pong", true, blue)
                 screen.blit(text_surface, (80, 40))
                 text_surface = font.render("For left paddle player please press A and Z to move.", true,
@@ -355,20 +330,16 @@ class Game_window_lvl2(QMainWindow):
                                            blue)
                 screen.blit(text_surface, (80, 280))
                 pygame.display.update()
-
                 for event in pygame.event.get():
                     if event.type == QUIT:
                         exit()
-
                 pressed_keys = pygame.key.get_pressed()
-
                 if pressed_keys[K_n]:
                     gameover = false
                     screen.fill(black)
                 elif pressed_keys[K_q]:
                     run = 0
                     exit()
-
                 clock.tick(20)
 
 
