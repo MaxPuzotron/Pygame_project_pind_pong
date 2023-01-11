@@ -119,7 +119,7 @@ class Game_window_lvl2(QMainWindow):
             paddlerightxy = [775, 200]
             gameover = true
             ballxy = [200, 200]
-            ballspeed = 3
+            ballspeed = 4
             balldy = 1
             balldx = 1
             ballservice = true
