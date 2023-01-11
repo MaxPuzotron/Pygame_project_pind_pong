@@ -135,10 +135,10 @@ class Game_window_lvl1(QMainWindow):
             screen = pygame.display.set_mode(winsize)
             pygame.display.set_caption('Ping Pong')
             screen.fill(black)
-            paddle = pygame.image.load('sprites/paddle.bmp').convert()
-            paddleerase = pygame.image.load('sprites/erase.bmp').convert()
+            paddle = pygame.image.load('sprites/paddle.png').convert()
+            paddleerase = pygame.image.load('sprites/erase.png').convert()
             ball = pygame.image.load('sprites/1.png').convert()
-            ballerase = pygame.image.load('sprites/fireeraser.png').convert()
+            ballerase = pygame.image.load('sprites/ball.png').convert()
             while gameover == true:
                 font = pygame.font.SysFont("Arial", 20)
                 text_surface = font.render("Ping Pong", true, blue)
